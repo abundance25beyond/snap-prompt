@@ -1,17 +1,14 @@
-# SnapPrompt
+# SnapPrompt 💎
 
-SnapPrompt is a simple browser-based app that lets you type and save prompts on the fly. Built with HTML, CSS, and JavaScript. Hosted on GitHub Pages.
-
-## Live Demo
-
-[Click here to view the live site](https://yourusername.github.io/snap-prompt/) *(replace with your GitHub username)*
+A quick and glam prompt-saving UI for creative minds and prompt engineers. Built with sparkle and simplicity.
 
 ## Features
+- ✍️ Write and save prompts to local storage
+- 💾 Display saved prompts in an organized list
+- 💎 Custom branding with uploadable logo (coming soon)
+- 📖 Built-in FAQ page
 
-- Type prompts in a box
-- Save prompts instantly to a list
-- Clean and mobile-friendly UI
-
----
-
-Made with ❤️ by ChatGPT & [Your Name]
+## To Do
+- [ ] Logo upload from UI
+- [ ] PWA wrapper / mobile app
+- [ ] Export/import prompts

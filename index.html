@@ -5,15 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SnapPrompt</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="blinglogo.png" type="image/png">
 </head>
-<body>
-  <div id="app">
-    <h1>SnapPrompt</h1>
-    <p>A simple browser-based prompt capture tool</p>
-    <textarea id="promptBox" placeholder="Type your prompt here..."></textarea>
-    <button onclick="savePrompt()">Save Prompt</button>
-    <ul id="promptList"></ul>
-  </div>
-  <script src="script.js"></script>
+<body class="glam-theme">
+  <header>
+    <img src="blinglogo.png" alt="SnapPrompt Logo" id="logo" />
+  </header>
+  <main>
+    <textarea placeholder="Type your prompt here..."></textarea>
+    <button id="saveBtn">💾 Save Prompt</button>
+    <section id="savedPrompts">
+      <h2>📝 Saved Prompts</h2>
+      <!-- Prompts will load here -->
+    </section>
+  </main>
+  <footer>
+    <a href="faq.html">FAQ</a>
+  </footer>
+  <script src="app.js"></script>
 </body>
 </html>
