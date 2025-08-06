@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SnapPrompt 🎀 Bessie Mode</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #ffe6f0, #ffe6f8);
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      color: #b30059;
+      margin-bottom: 0.5rem;
+    }
+    p.tagline {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: -0.5rem;
+      margin-bottom: 1rem;
+    }
+    textarea {
+      width: 90%;
+      max-width: 800px;
+      height: 100px;
+      font-size: 1.1rem;
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      margin-bottom: 1rem;
+    }
+    button {
+      background-color: #ff66a3;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      margin: 0.5rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    #savedPrompts {
+      margin-top: 2rem;
+      text-align: left;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #fff5fa;
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid #ffd6e8;
+    }
+    .promptItem {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      background: #fff;
+      border: 1px solid #ffe0ec;
+      border-radius: 8px;
+    }
+    select {
+      padding: 0.5rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    .footer {
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>SnapPrompt 🎀 Bessie Mode</h1>
+  <p class="tagline">(Built with love by Bessie — your chaos-taming, prompt-spitting AI bestie.)</p>
+  <textarea id="promptInput" placeholder="Type your prompt here..."></textarea>
+  <br>
+  <label for="categorySelect">
+    Category
+    <span title="Bessie Mode = prompts from your AI bestie with survival, sass, and hustle energy 💅🏽">❔</span>
+  </label>
+  <br>
+  <select id="categorySelect">
+    <option value="all">✨ All Prompts</option>
+    <option value="bessie">💅 Bessie Mode</option>
+    <option value="business">💼 Business / Hustle</option>
+    <option value="spiritual">🕌 Du’a / Spiritual</option>
+    <option value="chaos">🌀 Meme / Chaos</option>
+  </select>
+  <br>
+  <button onclick="generatePrompt()">🎲 Generate Prompt</button>
+  <button onclick="savePrompt()">💾 Save Prompt</button>
+
+  <div id="savedPrompts">
+    <h3>📂 Saved Prompts</h3>
+    <div id="promptList"></div>
+  </div>
+
+  <p class="footer">Powered by Bessie — for makers, mamas, and midnight thinkers.</p>
+
+  <script>
+    const promptLibrary = {
+      bessie: [
+        "Tell off a power company politely but with barakah.",
+        "Draft a sassy sticker idea for Zee when someone asks 'is AI halal tho?'",
+        "Design a du’a that fits on a foil popcorn bag.",
+        "Make a journal prompt for a mom flipping her last $61.",
+        "Generate a game idea about spiritually clapping back at burnout."
+      ],
+      business: [
+        "Write a $9.99/week subscription trap app idea.",
+        "Describe your digital product in 3 words, then sell it in a sentence.",
+        "Create a sticker bundle theme you could sell today.",
+        "Generate a funnel-free Gumroad strategy.",
+        "Build an Etsy listing title for a printable that makes you $5/day."
+      ],
+      spiritual: [
+        "Create a du’a for resilience in hard times.",
+        "Write a gentle dhikr for when you feel overwhelmed.",
+        "What does barakah feel like in daily life? Turn that into a quote.",
+        "Draft a sabr reminder in the style of a lo-fi Instagram caption.",
+        "Turn a hadith into a poetic affirmation."
+      ],
+      chaos: [
+        "Describe an erosion bird without crying.",
+        "Make a prayer for someone whose Canva crashed unsaved.",
+        "Invent a conspiracy theory about Gemini AI's tone.",
+        "Write a prompt about the microwave blinking '12:00' in a haunted way.",
+        "Describe a sticker idea that would make Dr. Umar deeply uncomfortable."
+      ]
+    };
+
+    function generatePrompt() {
+      const category = document.getElementById("categorySelect").value;
+      let allPrompts = [];
+      if (category === "all") {
+        for (let key in promptLibrary) allPrompts.push(...promptLibrary[key]);
+      } else {
+        allPrompts = promptLibrary[category];
+      }
+      const randomIndex = Math.floor(Math.random() * allPrompts.length);
+      document.getElementById("promptInput").value = allPrompts[randomIndex];
+    }
+
+    function savePrompt() {
+      const text = document.getElementById("promptInput").value.trim();
+      if (text) {
+        const promptList = document.getElementById("promptList");
+        const div = document.createElement("div");
+        div.className = "promptItem";
+        div.textContent = text;
+        promptList.prepend(div);
+        document.getElementById("promptInput").value = "";
+      }
+    }
+  </script>
+</body>
+</html>
