@@ -1,14 +1,12 @@
 # SnapPrompt 💎
 
-A quick and glam prompt-saving UI for creative minds and prompt engineers. Built with sparkle and simplicity.
+SnapPrompt is a creative prompt generator powered by AI. It sparks ideas by generating random prompts across multiple categories and lets you save your favorites for later inspiration. Built for makers, mamas, and midnight thinkers, SnapPrompt uses Bessie Mode and other themes to keep creativity flowing.
 
 ## Features
-- ✍️ Write and save prompts to local storage
-- 💾 Display saved prompts in an organized list
-- 💎 Custom branding with uploadable logo (coming soon)
-- 📖 Built-in FAQ page
+- Generate random prompts in categories like Bessie Mode, Business, Spiritual, and Chaos
+- Save prompts to your local device for later reference
+- Clean, soft-glam user interface designed for ease of use
+- Easy-to-extend architecture for adding more categories or customization
 
-## To Do
-- [ ] Logo upload from UI
-- [ ] PWA wrapper / mobile app
-- [ ] Export/import prompts
+## Usage
+Open the HTML file in a web browser to start generating prompts. Choose a category, generate prompts, and save the ones you love!
