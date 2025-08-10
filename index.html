@@ -2,26 +2,74 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SnapPrompt</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="blinglogo.png" type="image/png">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SnapPrompt — Simple Image Generator</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 24px; line-height: 1.4; }
+    h1 { font-size: 1.4rem; margin: 0 0 8px; }
+    p { margin: 0 0 16px; }
+    form { display: flex; gap: 8px; margin: 12px 0 16px; }
+    input[type="text"] { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
+    button { padding: 10px 14px; border: 0; border-radius: 8px; cursor: pointer; }
+    #status { margin: 8px 0; min-height: 20px; color: #444; }
+    #result { margin-top: 12px; }
+    #result img { max-width: 100%; border-radius: 8px; }
+    .hint { font-size: 0.92rem; color: #666; }
+    .small { font-size: 0.85rem; color: #666; margin-top: 20px; }
+    .error { color: #b00020; }
+  </style>
 </head>
-<body class="glam-theme">
-  <header>
-    <img src="blinglogo.png" alt="SnapPrompt Logo" id="logo" />
-  </header>
-  <main>
-    <textarea placeholder="Type your prompt here..."></textarea>
-    <button id="saveBtn">💾 Save Prompt</button>
-    <section id="savedPrompts">
-      <h2>📝 Saved Prompts</h2>
-      <!-- Prompts will load here -->
-    </section>
-  </main>
-  <footer>
-    <a href="faq.html">FAQ</a>
-  </footer>
-  <script src="app.js"></script>
+<body>
+  <h1>SnapPrompt — Simple Image Generator</h1>
+  <p class="hint">Type a prompt, click Generate, and this page will ask your Cloudflare Worker to create an image securely.</p>
+  <form id="prompt-form">
+    <input id="prompt-input" type="text" placeholder="e.g., neon hummingbird in a midnight garden, cinematic lighting" />
+    <button id="go" type="submit">Generate</button>
+  </form>
+  <div id="status"></div>
+  <div id="result"></div>
+  <p class="small">Trouble? Make sure you replaced <code>&lt;YOUR_WORKER_URL&gt;</code> in the code with your actual Worker URL, like <code>https://your-name.workers.dev/generate</code>.</p>
+<script>
+const WORKER_URL = "https://misty-water-262f.thefamiliarco-studio.workers.dev"; // Example: https://your-name.workers.dev/generate
+
+async function generate(prompt) {
+  const res = await fetch(WORKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt, width: 1024, height: 1024 })
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const detail = typeof data === "object" ? (data.detail || JSON.stringify(data)) : String(data);
+    throw new Error("Worker error " + res.status + (detail ? ": " + detail : ""));
+  }
+  if (!data || !data.image_base64) {
+    throw new Error("No image returned. Check your Worker and token.");
+  }
+  const img = document.createElement("img");
+  img.alt = "Generated image";
+  img.src = "data:" + (data.content_type || "image/png") + ";base64," + data.image_base64;
+  const result = document.getElementById("result");
+  result.innerHTML = "";
+  result.appendChild(img);
+}
+
+document.getElementById("prompt-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const input = document.getElementById("prompt-input");
+  const status = document.getElementById("status");
+  const prompt = (input.value || "").trim();
+  if (!prompt) return;
+  status.textContent = "Generating… this can take a few seconds.";
+  status.className = "";
+  try {
+    await generate(prompt);
+    status.textContent = "";
+  } catch (err) {
+    status.textContent = "Error: " + err.message;
+    status.className = "error";
+  }
+});
+</script>
 </body>
 </html>
