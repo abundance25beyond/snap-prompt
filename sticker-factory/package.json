@@ -1,0 +1,23 @@
+{
+  "name": "snapprompt-sticker-factory",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p .",
+    "gen": "node --env-file=.env dist/generate_stickers.js",
+    "sheet": "node --env-file=.env dist/layout_sheet.js",
+    "mockups": "node --env-file=.env dist/make_mockups.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "sharp": "^0.33.4",
+    "yargs": "^17.7.2",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "@types/yargs": "^17.0.32",
+    "@types/node": "^20.11.30"
+  }
+}
